@@ -1,11 +1,11 @@
-const defaultConfig = require('@wordpress/scripts/config/webpack.config.js');
+const defaultConfig = require("@wordpress/scripts/config/webpack.config.js");
 
-const THEME_NAME = 'k1-theme';
+const THEME_NAME = "k1-theme";
 const THEME_DIR = `/wp-content/themes/${THEME_NAME}`;
 
 function snakeToCamel(str) {
 	return str.replace(/([-_][a-z])/g, (group) =>
-		group.toUpperCase().replace('-', '').replace('_', ''),
+		group.toUpperCase().replace("-", "").replace("_", ""),
 	);
 }
 
@@ -16,13 +16,15 @@ function snakeToCamel(str) {
  * NOTE: Make sure to import scss files in TS file and not below.
  */
 const jsFiles = [
-	'front-page',
-	'hr-page',
-	'communications',
-	'pricing',
-	'k1-about',
-	'get-started',
+	"front-page",
+	"hr-page",
+	"communications",
+	"pricing",
+	"k1-about",
+	"get-started",
 ];
+
+const blockTypes = ["hero.js"];
 
 /**
  * For SCSS files (no leading `_`)
@@ -36,15 +38,25 @@ module.exports = {
 		entry: function () {
 			const entries = {
 				global: `.${THEME_DIR}/src/index.js`,
-				'vendors/fontawesome': `.${THEME_DIR}/src/js/vendors/global/fontawesome.js`,
-				'vendors/bootstrap': `.${THEME_DIR}/src/js/vendors/global/bootstrap.js`,
-				'vendors/vendors': `.${THEME_DIR}/src/styles/vendors/vendors.scss`,
+				"vendors/fontawesome": `.${THEME_DIR}/src/js/vendors/global/fontawesome.js`,
+				"vendors/bootstrap": `.${THEME_DIR}/src/js/vendors/global/bootstrap.js`,
+				"vendors/vendors": `.${THEME_DIR}/src/styles/vendors/vendors.scss`,
 			};
 
+			if (blockTypes.length > 0) {
+				jsFiles.forEach((jsFile) => {
+					const jsFileOutput = `blocks/${jsFile}`;
+					entries[
+						jsFileOutput
+					] = `.${THEME_DIR}/our-blocks/${jsFile}`;
+				});
+			}
 			if (jsFiles.length > 0) {
 				jsFiles.forEach((jsFile) => {
 					const jsFileOutput = snakeToCamel(jsFile);
-					entries[jsFileOutput] = `.${THEME_DIR}/src/js/${jsFile}/index.ts`;
+					entries[
+						jsFileOutput
+					] = `.${THEME_DIR}/src/js/${jsFile}/index.ts`;
 				});
 			}
 
