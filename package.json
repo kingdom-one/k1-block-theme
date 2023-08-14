@@ -1,0 +1,30 @@
+{
+	"name": "k1-block-theme",
+	"version": "0.1.0",
+	"description": "A block-style WordPress theme for Kingdom One",
+	"main": "src/index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kingdom-one/k1-block-theme.git"
+	},
+	"scripts": {
+		"build": "wp-scripts build",
+		"start": "wp-scripts start",
+		"check-engines": "wp-scripts check-engines",
+		"packages-update": "wp-scripts packages-update"
+	},
+	"author": "Kingdom One",
+	"license": "ISC",
+	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^6.4.0",
+		"@fortawesome/free-brands-svg-icons": "^6.4.0",
+		"@fortawesome/free-regular-svg-icons": "^6.4.0",
+		"@fortawesome/free-solid-svg-icons": "^6.4.0",
+		"aos": "^2.3.4",
+		"bootstrap": "^5.3.1",
+		"swiper": "^10.1.0"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^26.10.0"
+	}
+}
