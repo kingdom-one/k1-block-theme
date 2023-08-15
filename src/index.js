@@ -1,8 +1,8 @@
 // Styles
-import 'aos/dist/aos.css';
-import '../src/styles/main.scss';
+import "aos/dist/aos.css";
+import "./styles/main.scss";
 
 // JS
-import AOS from 'aos';
+import AOS from "aos";
 
 AOS.init();

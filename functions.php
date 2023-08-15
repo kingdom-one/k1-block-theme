@@ -7,21 +7,9 @@
  */
 
 // Load Required Files
-require_once get_template_directory() . '/inc/theme/class-theme-init.php';
+require_once get_template_directory() . '/inc/theme/class-block-theme.php';
 
 // Init Theme
-$k1_theme = new Theme_Init();
+$k1_theme = new Block_Theme();
 
 // =====================================
-
-/** Register Hero Block */
-function hero_block() {
-	wp_register_script( 'heroBlockScript', get_theme_root_uri() . '/dist/hero.js', array( 'wp-blocks', 'wp-editor' ), '0.1', true );
-	register_block_type(
-		'k1-block-theme/hero',
-		array(
-			'editor_script' => 'heroBlockScript',
-		)
-	);
-}
-add_action( 'init', 'hero_block' );
