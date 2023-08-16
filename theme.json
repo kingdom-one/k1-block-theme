@@ -55,12 +55,32 @@
 					"slug": "grey-lightest",
 					"color": "#dbdbdb",
 					"name": "Super Light Grey"
+				},
+				{
+					"slug": "white",
+					"color": "#fff",
+					"name": "White"
+				},
+				{
+					"slug": "black",
+					"color": "#000",
+					"name": "black"
 				}
 			],
 			"custom": false,
 			"customGradient": false,
 			"defaultPalette": false,
 			"defaultGradients": false
+		}
+	},
+	"styles": {
+		"blocks": {
+			"core/button": {
+				"color": {
+					"text": "white",
+					"background": "var(--wp--preset--color--primary)"
+				}
+			}
 		}
 	}
 }

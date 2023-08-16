@@ -1,7 +1,7 @@
 <?php // phpcs:ignore
 require_once dirname(__FILE__) . '/class-k1-theme-cleaner.php';
-class Theme_Init extends K1_Theme_Cleaner {
-	function __construct() {
+class Theme_Init extends K1_Theme_Cleaner { // phpcs:ignore
+	public function __construct() { // phpcs:ignore
 		$this->load_files();
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_k1_scripts' ) );
 		add_action( 'after_setup_theme', array( $this, 'k1_theme_supports' ) );
@@ -33,7 +33,7 @@ class Theme_Init extends K1_Theme_Cleaner {
 		wp_enqueue_style( 'main', get_template_directory_uri() . '/dist/global.css', array( 'vendors' ), $modified_styles );
 		wp_localize_script( 'main', 'k1SiteData', array( 'rootUrl' => home_url() ) );
 
-		$this->remove_wordpress_styles( array( 'classic-theme-styles', 'wp-block-library', 'dashicons', 'global-styles' ) );
+		$this->remove_wordpress_styles( array( 'classic-theme-styles', 'global-styles' ) );
 	}
 
 	/** Handle Theme Supports */
@@ -42,6 +42,7 @@ class Theme_Init extends K1_Theme_Cleaner {
 		add_theme_support( 'title-tag' );
 	}
 
+	/** Register Menus */
 	public function register_k1_menus() {
 		register_nav_menus(
 			array(

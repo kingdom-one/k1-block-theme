@@ -21,7 +21,7 @@ const jsFiles = [
 	"pricing",
 ];
 
-const blockTypes = ["hero", "hero-content"];
+const blockTypes = ["hero"];
 
 /**
  * For SCSS files (no leading `_`)
