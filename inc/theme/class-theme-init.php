@@ -21,7 +21,7 @@ class Theme_Init extends K1_Theme_Cleaner { // phpcs:ignore
 		$this->dependencies['bootstrap']   = require_once dirname( __FILE__, 3 ) . '/dist/vendors/bootstrap.asset.php';
 		$this->dependencies['fontawesome'] = require_once dirname( __FILE__, 3 ) . '/dist/vendors/fontawesome.asset.php';
 		$this->dependencies['vendors']     = require_once dirname( __FILE__, 3 ) . '/dist/vendors/vendors.asset.php';
-		$this->dependencies['global']      = require_once dirname( __FILE__, 3 ) . '/dist/global.asset.php';
+		$this->dependencies['main']        = require_once dirname( __FILE__, 3 ) . '/dist/global.asset.php';
 	}
 
 	/**
@@ -31,11 +31,11 @@ class Theme_Init extends K1_Theme_Cleaner { // phpcs:ignore
 		// JS
 		wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/vendors/bootstrap.js', array(), $this->dependencies['bootstrap']['version'], true );
 		wp_enqueue_script( 'fontawesome', get_template_directory_uri() . '/dist/vendors/fontawesome.js', array(), $this->dependencies['fontawesome']['version'], false );
-		wp_enqueue_script( 'main', get_template_directory_uri() . '/dist/global.js', array( 'bootstrap', 'fontawesome' ), $this->dependencies['global']['version'], true );
+		wp_enqueue_script( 'main', get_template_directory_uri() . '/dist/global.js', array( 'bootstrap', 'fontawesome' ), $this->dependencies['main']['version'], true );
 
 		// CSS
 		wp_enqueue_style( 'vendors', get_template_directory_uri() . '/dist/vendors/vendors.css', array(), $this->dependencies['vendors']['version'] );
-		wp_enqueue_style( 'main', get_template_directory_uri() . '/dist/global.css', array( 'vendors' ), $this->dependencies['global']['version'] );
+		wp_enqueue_style( 'main', get_template_directory_uri() . '/dist/global.css', array( 'vendors' ), $this->dependencies['main']['version'] );
 		wp_localize_script( 'main', 'k1SiteData', array( 'rootUrl' => home_url() ) );
 
 		 $this->remove_wordpress_styles( array( 'classic-theme-styles' ) );

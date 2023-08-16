@@ -12,9 +12,6 @@ class Block_Theme extends Theme_Init {
 
 	/** Register Block-Theme-Specific Supports */
 	public function block_theme_supports() {
-		add_theme_support( 'editor-styles' );
-		// load frontend css in the editor screen. TODO: Refactor me
-		add_editor_style( array( 'dist/global.css', 'dist/vendors/vendors.css', 'dist/frontPage.css' ) );
 		add_theme_support( 'wp-block-styles' );
 		add_image_size( 'heroBanner', 3840, 2160 );
 	}
@@ -33,9 +30,10 @@ class Block_Theme extends Theme_Init {
 	 */
 	private function register_block_type( string $block_name ) {
 		$this->block_name    = $block_name;
-		$script_dependencies = require dirname( __FILE__, 3 ) . "/dist/blocks/{$block_name}.asset.php";
+		$script_dependencies = require_once dirname( __FILE__, 3 ) . "/dist/blocks/{$block_name}.asset.php";
 		$script_name         = "{$block_name}BlockScript";
 		$style_name          = "{$block_name}-style";
+		$the_block           = 'k1-block-theme/' . $block_name;
 
 		// Registers JS
 		wp_register_script(
@@ -48,17 +46,29 @@ class Block_Theme extends Theme_Init {
 
 		// Enqueues Editor Style
 		wp_enqueue_block_style(
-			$block_name,
+			$the_block,
 			array(
 				'handle' => $style_name,
 				'path'   => get_theme_file_path( "/dist/blocks/{$block_name}.css" ),
 				'src'    => get_theme_file_uri( "/dist/blocks/{$block_name}.css" ),
+				'deps'   => array( 'vendors', 'main' ),
+				'ver'    => $script_dependencies['version'],
 			)
 		);
+
+		// // Enqueues Front-End Style
+		// wp_register_style(
+		// $style_name,
+		// get_theme_file_uri( "/dist/blocks/{$block_name}.css" ), // Path to your CSS file
+		// array( 'main', 'vendors' ),
+		// $script_dependencies['version']
+		// );
+
 		$block_loaded = register_block_type(
-			"k1-block-theme/{$block_name}",
+			$the_block,
 			array(
 				'editor_script'   => $script_name,
+				'style_handles'   => array( $style_name ),
 				'render_callback' => array( $this, 'ourRenderCallback' ),
 			)
 		);
@@ -66,13 +76,6 @@ class Block_Theme extends Theme_Init {
 			new WP_Error( '501', "{$block_name} failed to load!" );
 		}
 
-		// Enqueues Front-End Style
-		wp_enqueue_style(
-			$style_name,
-			get_theme_file_uri( "/dist/blocks/{$block_name}.css" ), // Path to your CSS file
-			array( 'main', 'vendors' ),
-			$script_dependencies['version']
-		);
 	}
 
 	/** The PHP Render callback function

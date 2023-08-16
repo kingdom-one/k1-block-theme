@@ -168,6 +168,10 @@ function EditComponent({ attributes, setAttributes }) {
 				</Panel>
 			</InspectorControls>
 			<div className="hero__background">
+				<div
+					className="hero__background--color"
+					style={{ backgroundColor: color }}
+				/>
 				<div className="hero__background--lower" style={lowerDiv} />
 				{attributes.hasBackgroundImage && (
 					<div className="hero__background--upper"></div>
