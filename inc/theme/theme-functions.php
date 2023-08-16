@@ -55,11 +55,15 @@ function k1_get_image_asset_url( string $file, string $extension, string $folder
  */
 function k1_enqueue_page_style( string $id, array $deps = array( 'main' ) ) {
 	$total_deps = array_merge( $deps, array( 'main' ) );
+	$asset_file = get_stylesheet_directory() . "/dist/{$id}.asset.php";
+	if ( file_exists( $asset_file ) ) {
+		$asset = require_once $asset_file;
+	}
 	wp_enqueue_style(
 		$id,
 		get_stylesheet_directory_uri() . "/dist/{$id}.css",
 		$total_deps,
-		filemtime( get_stylesheet_directory() . "/dist/{$id}.css" )
+		$asset['version'] ?? filemtime( get_stylesheet_directory() . "/dist/{$id}.css" )
 	);
 }
 
@@ -73,7 +77,7 @@ function k1_enqueue_page_script( string $id, array $deps = array( 'main' ) ) {
 	$asset_file = get_stylesheet_directory() . "/dist/{$id}.asset.php";
 
 	if ( file_exists( $asset_file ) ) {
-		$asset = require $asset_file;
+		$asset = require_once $asset_file;
 
 		wp_enqueue_script(
 			$id,

@@ -72,7 +72,7 @@ function EditComponent({ attributes, setAttributes }) {
 					backgroundColor: `var(--color-primary--dark)`,
 			  },
 	);
-	const [color, setColor] = useState("#00ae83");
+	const [color, setColor] = useState("#00644b");
 	useEffect(() => {
 		setLowerDiv(
 			attributes.hasBackgroundImage
@@ -199,8 +199,15 @@ function EditComponent({ attributes, setAttributes }) {
 					<div className="col-1" />
 					<div className="col-lg-11">
 						<InnerBlocks
-							allowedBlocks={["core/buttons"]}
+							allowedBlocks={["core/paragraph", "core/buttons"]}
 							template={[
+								[
+									"core/paragraph",
+									{
+										placeholder:
+											"A subheadline section can go here.",
+									},
+								],
 								[
 									"core/buttons",
 									[

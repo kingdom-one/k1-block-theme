@@ -5,6 +5,7 @@ class Block_Theme extends Theme_Init {
 	private string $block_name; // phpcs:ignore
 
 	public function __construct() { // phpcs:ignore
+		parent::__construct();
 		add_action( 'after_setup_theme', array( $this, 'block_theme_supports' ) );
 		add_action( 'init', array( $this, 'register_blocks' ) );
 	}
@@ -34,11 +35,22 @@ class Block_Theme extends Theme_Init {
 		$this->block_name    = $block_name;
 		$script_dependencies = require dirname( __FILE__, 3 ) . "/dist/blocks/{$block_name}.asset.php";
 		$script_name         = "{$block_name}BlockScript";
-		wp_register_script( $script_name, get_stylesheet_directory_uri() . "/dist/blocks/{$block_name}.js", $script_dependencies['dependencies'], $script_dependencies['version'], true );
+		$style_name          = "{$block_name}-style";
+
+		// Registers JS
+		wp_register_script(
+			$script_name,
+			get_stylesheet_directory_uri() . "/dist/blocks/{$block_name}.js",
+			$script_dependencies['dependencies'],
+			$script_dependencies['version'],
+			true
+		);
+
+		// Enqueues Editor Style
 		wp_enqueue_block_style(
 			$block_name,
 			array(
-				'handle' => "{$block_name}-style",
+				'handle' => $style_name,
 				'path'   => get_theme_file_path( "/dist/blocks/{$block_name}.css" ),
 				'src'    => get_theme_file_uri( "/dist/blocks/{$block_name}.css" ),
 			)
@@ -53,6 +65,14 @@ class Block_Theme extends Theme_Init {
 		if ( false === $block_loaded ) {
 			new WP_Error( '501', "{$block_name} failed to load!" );
 		}
+
+		// Enqueues Front-End Style
+		wp_enqueue_style(
+			$style_name,
+			get_theme_file_uri( "/dist/blocks/{$block_name}.css" ), // Path to your CSS file
+			array( 'main', 'vendors' ),
+			$script_dependencies['version']
+		);
 	}
 
 	/** The PHP Render callback function
