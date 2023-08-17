@@ -1,7 +1,7 @@
 <?php // phpcs:ignore
 require_once dirname(__FILE__) . '/class-k1-theme-cleaner.php';
 class Theme_Init extends K1_Theme_Cleaner { // phpcs:ignore
-	private array $dependencies = array();
+	private array $dependencies = array(); // phpcs:ignore
 
 	public function __construct() { // phpcs:ignore
 		parent::__construct();
@@ -29,16 +29,43 @@ class Theme_Init extends K1_Theme_Cleaner { // phpcs:ignore
 	 */
 	public function enqueue_k1_scripts() {
 		// JS
-		wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/vendors/bootstrap.js', array(), $this->dependencies['bootstrap']['version'], true );
-		wp_enqueue_script( 'fontawesome', get_template_directory_uri() . '/dist/vendors/fontawesome.js', array(), $this->dependencies['fontawesome']['version'], false );
-		wp_enqueue_script( 'main', get_template_directory_uri() . '/dist/global.js', array( 'bootstrap', 'fontawesome' ), $this->dependencies['main']['version'], true );
+		wp_enqueue_script(
+			'bootstrap',
+			get_template_directory_uri() . '/dist/vendors/bootstrap.js',
+			array(),
+			$this->dependencies['bootstrap']['version'],
+			true
+		);
+		wp_enqueue_script(
+			'fontawesome',
+			get_template_directory_uri() . '/dist/vendors/fontawesome.js',
+			array(),
+			$this->dependencies['fontawesome']['version'],
+			false
+		);
+		wp_enqueue_script(
+			'main',
+			get_template_directory_uri() . '/dist/global.js',
+			array( 'bootstrap', 'fontawesome' ),
+			$this->dependencies['main']['version'],
+			true
+		);
 
 		// CSS
-		wp_enqueue_style( 'vendors', get_template_directory_uri() . '/dist/vendors/vendors.css', array(), $this->dependencies['vendors']['version'] );
-		wp_enqueue_style( 'main', get_template_directory_uri() . '/dist/global.css', array( 'vendors' ), $this->dependencies['main']['version'] );
-		wp_localize_script( 'main', 'k1SiteData', array( 'rootUrl' => home_url() ) );
+		wp_enqueue_style(
+			'vendors',
+			get_template_directory_uri() . '/dist/vendors/vendors.css',
+			array(),
+			$this->dependencies['vendors']['version']
+		);
+		wp_enqueue_style(
+			'main',
+			get_template_directory_uri() . '/dist/global.css',
+			array( 'vendors' ),
+			$this->dependencies['main']['version']
+		);
 
-		 $this->remove_wordpress_styles( array( 'classic-theme-styles' ) );
+		wp_localize_script( 'main', 'k1SiteData', array( 'rootUrl' => home_url() ) );
 	}
 
 	/** Handle Theme Supports */

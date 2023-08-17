@@ -21,7 +21,7 @@ const jsFiles = [
 	"pricing",
 ];
 
-const blockTypes = ["hero"];
+const blockTypes = ["hero", "testimonials-slider"];
 
 /**
  * For SCSS files (no leading `_`)

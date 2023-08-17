@@ -73,6 +73,7 @@ function EditComponent({ attributes, setAttributes }) {
 			  },
 	);
 	const [color, setColor] = useState("#00644b");
+
 	useEffect(() => {
 		setLowerDiv(
 			attributes.hasBackgroundImage
@@ -115,6 +116,7 @@ function EditComponent({ attributes, setAttributes }) {
 			name: "Above Reproach Orange",
 		},
 	];
+	const blockProps = useBlockProps();
 	return (
 		<section
 			className="hero d-flex flex-column justify-content-center"
@@ -197,24 +199,26 @@ function EditComponent({ attributes, setAttributes }) {
 						/>
 					</div>
 				</div>
-			</div>
-			<div className="container my-5">
-				<div className="row position-relative z-3">
+				<div className="row my-5 position-relative z-3">
 					<div className="col-1" />
 					<div className="col-lg-11">
-						<InnerBlocks
-							allowedBlocks={["core/paragraph", "core/buttons"]}
-							template={[
-								[
+						<div {...blockProps}>
+							<InnerBlocks
+								allowedBlocks={[
 									"core/paragraph",
-									{
-										placeholder:
-											"A subheadline section can go here.",
-									},
-								],
-								[
 									"core/buttons",
+									"core/button",
+								]}
+								template={[
 									[
+										"core/paragraph",
+										{
+											placeholder:
+												"A subheadline section can go here.",
+										},
+									],
+									[
+										"core/buttons",
 										[
 											"core/button",
 											{
@@ -223,9 +227,9 @@ function EditComponent({ attributes, setAttributes }) {
 											},
 										],
 									],
-								],
-							]}
-						/>
+								]}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>

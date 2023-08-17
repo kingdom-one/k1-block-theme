@@ -7,6 +7,7 @@ class Block_Theme extends Theme_Init {
 	public function __construct() { // phpcs:ignore
 		parent::__construct();
 		add_action( 'after_setup_theme', array( $this, 'block_theme_supports' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_k1_scripts' ) );
 		add_action( 'init', array( $this, 'register_blocks' ) );
 	}
 
@@ -18,17 +19,18 @@ class Block_Theme extends Theme_Init {
 
 	/** Registers Custom Blocks */
 	public function register_blocks() {
-		$blocks = array( 'hero' );
-		foreach ( $blocks as $block_name ) {
-			$this->register_block_type( $block_name );
+		$dynamic_blocks = array( 'hero', 'testimonials-slider' );
+		foreach ( $dynamic_blocks as $block_name ) {
+			$this->register_dynamic_block_type( $block_name );
 		}
+
 	}
 
 	/** Registers Block Type Scripts
 	 *
 	 * @param string $block_name the name of the block
 	 */
-	private function register_block_type( string $block_name ) {
+	private function register_dynamic_block_type( string $block_name ) {
 		$this->block_name    = $block_name;
 		$script_dependencies = require_once dirname( __FILE__, 3 ) . "/dist/blocks/{$block_name}.asset.php";
 		$script_name         = "{$block_name}BlockScript";
@@ -51,18 +53,10 @@ class Block_Theme extends Theme_Init {
 				'handle' => $style_name,
 				'path'   => get_theme_file_path( "/dist/blocks/{$block_name}.css" ),
 				'src'    => get_theme_file_uri( "/dist/blocks/{$block_name}.css" ),
-				'deps'   => array( 'vendors', 'main' ),
+				'deps'   => array( 'main' ),
 				'ver'    => $script_dependencies['version'],
 			)
 		);
-
-		// // Enqueues Front-End Style
-		// wp_register_style(
-		// $style_name,
-		// get_theme_file_uri( "/dist/blocks/{$block_name}.css" ), // Path to your CSS file
-		// array( 'main', 'vendors' ),
-		// $script_dependencies['version']
-		// );
 
 		$block_loaded = register_block_type(
 			$the_block,
@@ -72,16 +66,17 @@ class Block_Theme extends Theme_Init {
 				'render_callback' => array( $this, 'ourRenderCallback' ),
 			)
 		);
+
 		if ( false === $block_loaded ) {
 			new WP_Error( '501', "{$block_name} failed to load!" );
 		}
-
 	}
 
 	/** The PHP Render callback function
 	 *
-	 * @param array  $attributes the block attributes
-	 * @param string $content the block contents
+	 * @param array    $attributes the block attributes
+	 * @param string   $content the block contents
+	 * @param WP_Block $block the nested block
 	 * @return string the HTML
 	 */
 	public function ourRenderCallback( array $attributes, string $content, $block ): string {
