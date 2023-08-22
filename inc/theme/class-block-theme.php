@@ -3,6 +3,7 @@ require_once dirname( __FILE__ ) . '/class-theme-init.php';
 /** Block Theme Initializer (on top of standard init) */
 class Block_Theme extends Theme_Init {
 	private string $block_name; // phpcs:ignore
+	private array $swipers = array( 'brands-slider', 'testimonials-slider', 'services-slider' ); // phpcs:ignore
 
 	public function __construct() { // phpcs:ignore
 		parent::__construct();
@@ -19,9 +20,23 @@ class Block_Theme extends Theme_Init {
 
 	/** Registers Custom Blocks */
 	public function register_blocks() {
-		$dynamic_blocks = array( 'hero', 'testimonials-slider' );
+		$dynamic_blocks = array( 'hero', 'testimonials-slider', 'header', 'footer' );
 		foreach ( $dynamic_blocks as $block_name ) {
 			$this->register_dynamic_block_type( $block_name );
+		}
+
+		foreach ( $this->swipers as $swiper ) {
+			$script_dependencies = require_once dirname( __FILE__, 3 ) . "/dist/vendors/sliders/{$swiper}.asset.php";
+			$script_name         = "{$swiper}";
+
+			// Registers JS
+			wp_register_script(
+				$script_name,
+				get_stylesheet_directory_uri() . "/dist/vendors/sliders/{$block_name}.js",
+				array_merge( $script_dependencies['dependencies'], array( 'main' ) ),
+				$script_dependencies['version'],
+				true
+			);
 		}
 
 	}
@@ -58,14 +73,16 @@ class Block_Theme extends Theme_Init {
 			)
 		);
 
-		$block_loaded = register_block_type(
-			$the_block,
-			array(
-				'editor_script'   => $script_name,
-				'style_handles'   => array( $style_name ),
-				'render_callback' => array( $this, 'ourRenderCallback' ),
-			)
+		$block_type_args = array(
+			'editor_script'   => $script_name,
+			'style_handles'   => array( $style_name ),
+			'render_callback' => array( $this, 'ourRenderCallback' ),
 		);
+		$is_swiper_block = in_array( $block_name, $this->swipers, true );
+		if ( $is_swiper_block ) {
+			$block_type_args['view_script_handles'] = array( $block_name );
+		}
+		$block_loaded = register_block_type( $the_block, $block_type_args );
 
 		if ( false === $block_loaded ) {
 			new WP_Error( '501', "{$block_name} failed to load!" );

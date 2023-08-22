@@ -21,7 +21,8 @@ const jsFiles = [
 	"pricing",
 ];
 
-const blockTypes = ["hero", "testimonials-slider"];
+const blockTypes = ["hero", "testimonials-slider", "header", "footer"];
+const swipers = ["testimonials", "services", "brands"];
 
 /**
  * For SCSS files (no leading `_`)
@@ -40,6 +41,14 @@ module.exports = {
 				"vendors/vendors": `./src/styles/vendors/vendors.scss`,
 			};
 
+			if (swipers.length > 0) {
+				swipers.forEach((jsFile) => {
+					const jsFileOutput = `vendors/sliders/${jsFile}-slider`;
+					entries[
+						jsFileOutput
+					] = `./src/js/vendors/swipers/${jsFile}-slider.ts`;
+				});
+			}
 			if (blockTypes.length > 0) {
 				blockTypes.forEach((jsFile) => {
 					const jsFileOutput = `blocks/${jsFile}`;
