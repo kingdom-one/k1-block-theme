@@ -1,3 +1,9 @@
+<?php
+/**
+ * The Footer
+ */
+
+?>
 <footer class="footer bg-color-primary--dark pt-5 pb-3">
 	<div class="container">
 		<div class="row mb-5">

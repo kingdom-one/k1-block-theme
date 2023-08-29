@@ -3,7 +3,7 @@
  * The Template for the Hero Section
  */
 
-var_dump( $content, $attributes );
+// var_dump( $content, $attributes, $block );
 $background                 = $attributes['background'] ?? 'background-color:var(--color-primary);';
 $background_color           = $attributes['backgroundColor'] ?? 'var(--wp--preset--color--primary)';
 $background_color_direction = $attributes['backgroundColorDirection'] ?? 'left';
