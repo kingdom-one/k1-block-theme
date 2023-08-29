@@ -4,7 +4,6 @@
  */
 
 ?>
-
 <header class="header py-3" id="site-header">
 	<div class="navbar container-fluid gx-5 py-4">
 		<div class="row justify-content-between">

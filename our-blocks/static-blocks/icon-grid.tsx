@@ -1,11 +1,12 @@
-import "../../src/styles/blocks/_key-services.scss";
+import "../../src/styles/blocks/icon-grid.scss";
 
 import React from "@wordpress/element";
 import { BlockConfiguration, registerBlockType } from "@wordpress/blocks";
 import PlaceholderBlock from "../utilities/PlaceholderBlock";
 
-registerBlockType("k1-block-theme/key-services", {
-	title: "Key Services (Featured Talent Groups)",
+registerBlockType("k1-block-theme/icon-grid", {
+	title: "Icon Grid",
+	description: "Shows the 'Community Tools and Knowledge' Grid",
 	edit: EditComponent,
 	save: () => null,
 	supports: { align: ["full"] },
@@ -14,10 +15,5 @@ registerBlockType("k1-block-theme/key-services", {
 } as BlockConfiguration);
 
 function EditComponent() {
-	return (
-		<PlaceholderBlock
-			title="Key Services"
-			message="HR, Finance, Marcom & Staffing Icons with labels"
-		/>
-	);
+	return <PlaceholderBlock title="Icon Grid" />;
 }

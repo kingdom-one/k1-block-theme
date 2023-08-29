@@ -27,14 +27,14 @@ const swipers = [
 	"brands-slider",
 	"relationship-first-slider",
 ];
-const staticBlocks = [...swipers, "site-header", "site-footer", "key-services"];
+const staticBlocks = [
+	...swipers,
+	"site-header",
+	"site-footer",
+	"key-services",
+	"icon-grid",
+];
 const dynamicBlocks = ["hero"];
-
-/**
- * For SCSS files (no leading `_`)
- * Array of strings modeled after scss names (e.g. 'we-are-kingdom-one')
- *  */
-const styleSheets = []; // for scss only
 
 module.exports = {
 	...defaultConfig,
@@ -78,14 +78,14 @@ module.exports = {
 				});
 			}
 
-			if (styleSheets.length > 0) {
-				styleSheets.forEach((styleSheet) => {
-					const styleSheetOutput = snakeToCamel(styleSheet);
-					entries[
-						styleSheetOutput
-					] = `./src/styles/pages/${styleSheet}.scss`;
-				});
-			}
+			// if (styleSheets.length > 0) {
+			// 	styleSheets.forEach((styleSheet) => {
+			// 		const styleSheetOutput = snakeToCamel(styleSheet);
+			// 		entries[
+			// 			styleSheetOutput
+			// 		] = `./src/styles/pages/${styleSheet}.scss`;
+			// 	});
+			// }
 			return entries;
 		},
 

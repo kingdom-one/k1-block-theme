@@ -57,7 +57,7 @@ class Custom_Block {
 			get_stylesheet_directory_uri() . "/dist/blocks/{$block_name}.js",
 			$total_deps,
 			$script_dependencies['version'],
-			true
+			array( 'strategy' => 'defer' )
 		);
 
 		if ( ! $block_script ) {
@@ -75,6 +75,7 @@ class Custom_Block {
 			)
 		);
 		$this->block_type = $type;
+		$block_is_static  = BlockType::static === $this->block_type;
 		$block_type_args  = array(
 			'editor_script'   => $script_name,
 			'style_handles'   => array( $style_name ),
@@ -98,7 +99,9 @@ class Custom_Block {
 	 * @return string the HTML
 	 */
 	public function dynamic_render_callback( array $attributes, string $content, $block ): string|false { // phpcs:ignore
+
 		$template_file = ( BlockType::static === $this->block_type ) ? "/our-blocks/static-blocks/{$this->name}.php" : "/our-blocks/{$this->name}.php";
+
 		ob_start();
 		require get_theme_file_path( $template_file );
 		return ob_get_clean();

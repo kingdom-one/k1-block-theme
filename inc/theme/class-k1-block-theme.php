@@ -36,12 +36,12 @@ class K1_Block_Theme extends Theme_Init {
 			}
 		}
 
-		$dynamic_blocks = array( 'hero', 'site-header', 'site-footer', 'key-services' );
+		$dynamic_blocks = array( 'hero' );
 		foreach ( $dynamic_blocks as $block ) {
 			new Custom_Block( $block, BlockType::dynamic );
 		}
 
-		$static_blocks = array();
+		$static_blocks = array( 'site-header', 'site-footer', 'key-services', 'icon-grid' );
 		foreach ( $static_blocks as $block ) {
 			new Custom_Block( $block, BlockType::static );
 		}
@@ -61,7 +61,7 @@ class K1_Block_Theme extends Theme_Init {
 			get_stylesheet_directory_uri() . "/dist/vendors/sliders/{$swiper}.js",
 			$swiper_deps,
 			$script_dependencies['version'],
-			true
+			array( 'strategy' => 'defer' )
 		);
 
 		if ( $swiper_script_registered ) {

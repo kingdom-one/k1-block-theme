@@ -44,21 +44,21 @@ class Theme_Init extends K1_Theme_Cleaner {
 			get_template_directory_uri() . '/dist/vendors/bootstrap.js',
 			array(),
 			$this->dependencies['bootstrap']['version'],
-			true
+			array( 'strategy' => 'defer' )
 		);
 		wp_enqueue_script(
 			'fontawesome',
 			get_template_directory_uri() . '/dist/vendors/fontawesome.js',
 			array(),
 			$this->dependencies['fontawesome']['version'],
-			false
+			array( 'strategy' => 'async' )
 		);
 		wp_enqueue_script(
 			'main',
 			get_template_directory_uri() . '/dist/global.js',
 			array( 'bootstrap', 'fontawesome' ),
 			$this->dependencies['main']['version'],
-			true
+			array( 'strategy' => 'defer' )
 		);
 
 		// CSS
