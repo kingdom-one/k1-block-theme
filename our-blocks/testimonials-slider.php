@@ -1,4 +1,15 @@
 <?php
+/**
+ * Fires when scripts and styles are enqueued.
+ */
+add_action(
+	'wp_enqueue_scripts',
+	function() : void {
+		wp_enqueue_script( 'testimonials-slider' );
+
+	}
+);
+var_dump( wp_script_is( 'testimonials-slider', 'enqueued' ) );
 $swiper_slides = array(
 	array(
 		'image'       => k1_get_image_asset_url( 'tim', 'png', '', false ),
