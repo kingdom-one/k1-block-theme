@@ -7,6 +7,16 @@ Circumvent dependency on Advanced Custom Fields and use Blocks instead to allow 
 
 # Changelog
 
+## v0.2.1
+
+-   Refactor Blocks for Static/Dynamic distinction
+-   Added new enum `BlockType` for secure handling of dynamic/static blocks
+
+### Blocks Built:
+
+-   Relationship-First Slider
+-   Top Talent Groups
+
 ## v0.2.0
 
 -   Refactor `/dist` folder to be more organized

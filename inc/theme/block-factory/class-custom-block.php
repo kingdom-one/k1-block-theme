@@ -1,6 +1,9 @@
 <?php
 /** Block Factory */
 
+/** Load the Block Type Enum */
+require_once __DIR__ . '/enum-block-type.php';
+
 /**
  * Custom Block
  * Description: Generates a WordPress Block
@@ -12,27 +15,35 @@ class Custom_Block {
 	 */
 	public string $name = '';
 
+	/** The Block Type
+	 *
+	 * @var $block_type
+	 */
+	private BlockType $block_type;
+
 	/**
 	 * Constructor
 	 *
 	 * @param string     $name the name of the block
+	 * @param BlockType  $type the type of block
 	 * @param array|null $asset_file [optional] the asset.php file
 	 * @param string[]   $script_handles the name of the handles
 	 * @param ?array     $block_args custom block args
 	 */
-	public function __construct( string $name, $asset_file = null, $script_handles = array(), $block_args = array() ) {
+	public function __construct( string $name, BlockType $type, $asset_file = null, $script_handles = array(), $block_args = array() ) {
 		$this->name = $name;
-		$this->register_dynamic_block_type( $asset_file, $script_handles, $block_args );
+		$this->register_block_type( $type, $asset_file, $script_handles, $block_args );
 	}
 
 	/**
 	 * Registers Block Type Scripts
 	 *
-	 * @param ?array $asset_file block asset_file override
-	 * @param ?array $script_handles script handles to add to dependencies
-	 * @param ?array $block_args custom block args
+	 * @param BlockType $type the type of block
+	 * @param ?array    $asset_file block asset_file override
+	 * @param ?array    $script_handles script handles to add to dependencies
+	 * @param ?array    $block_args custom block args
 	 */
-	private function register_dynamic_block_type( ?array $asset_file, array $script_handles = array(), $block_args = array() ) {
+	private function register_block_type( BlockType $type, ?array $asset_file, ?array $script_handles = array(), ?array $block_args = array() ) {
 		$block_name          = $this->name;
 		$script_dependencies = $asset_file ?? require dirname( __DIR__, 3 ) . "/dist/blocks/{$block_name}.asset.php";
 		$total_deps          = array_merge( $script_dependencies['dependencies'], $script_handles );
@@ -63,8 +74,8 @@ class Custom_Block {
 				'ver'    => $script_dependencies['version'],
 			)
 		);
-
-		$block_type_args = array(
+		$this->block_type = $type;
+		$block_type_args  = array(
 			'editor_script'   => $script_name,
 			'style_handles'   => array( $style_name ),
 			'render_callback' => array( $this, 'the_render_callback' ),
@@ -78,6 +89,7 @@ class Custom_Block {
 		}
 	}
 
+
 	/** The PHP Render callback function
 	 *
 	 * @param array    $attributes the block attributes
@@ -85,8 +97,8 @@ class Custom_Block {
 	 * @param WP_Block $block the nested block
 	 * @return string the HTML
 	 */
-	public function the_render_callback( array $attributes, string $content, $block ): string|false { // phpcs:ignore
-		$template_file = "/our-blocks/{$this->name}.php";
+	public function dynamic_render_callback( array $attributes, string $content, $block ): string|false { // phpcs:ignore
+		$template_file = ( BlockType::static === $this->block_type ) ? "/our-blocks/static-blocks/{$this->name}.php" : "/our-blocks/{$this->name}.php";
 		ob_start();
 		require get_theme_file_path( $template_file );
 		return ob_get_clean();

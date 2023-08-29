@@ -28,7 +28,7 @@ class K1_Block_Theme extends Theme_Init {
 	/** Registers Custom Blocks */
 	public function register_blocks() {
 
-		$swipers = array( 'brands-slider', 'testimonials-slider', 'services-slider' );
+		$swipers = array( 'brands-slider', 'testimonials-slider', 'services-slider', 'relationship-first-slider' );
 		foreach ( $swipers as $swiper ) {
 			$the_swiper_block = $this->register_swiper( $swiper );
 			if ( is_wp_error( $the_swiper_block ) ) {
@@ -36,9 +36,14 @@ class K1_Block_Theme extends Theme_Init {
 			}
 		}
 
-		$dynamic_blocks = array( 'hero', 'site-header', 'site-footer' );
+		$dynamic_blocks = array( 'hero', 'site-header', 'site-footer', 'key-services' );
 		foreach ( $dynamic_blocks as $block ) {
-			new Custom_Block( $block );
+			new Custom_Block( $block, BlockType::dynamic );
+		}
+
+		$static_blocks = array();
+		foreach ( $static_blocks as $block ) {
+			new Custom_Block( $block, BlockType::static );
 		}
 	}
 
@@ -60,7 +65,7 @@ class K1_Block_Theme extends Theme_Init {
 		);
 
 		if ( $swiper_script_registered ) {
-			new Custom_Block( $swiper, $script_dependencies, array( $swiper ), array( 'script_handles' => array( $swiper ) ) );
+			new Custom_Block( $swiper, BlockType::static, $script_dependencies, array( $swiper ), array( 'script_handles' => array( $swiper ) ) );
 		} else {
 			return new WP_Error( 'swiper_script_registration_failure', "{$swiper} script not registered!" );
 		}

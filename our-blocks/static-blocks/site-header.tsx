@@ -1,10 +1,10 @@
-import "../src/styles/components/_footer.scss";
+import "../../src/styles/components/_header.scss";
 import React from "@wordpress/element";
 import { BlockConfiguration, registerBlockType } from "@wordpress/blocks";
-import PlaceholderBlock from "./utilities/PlaceholderBlock";
+import PlaceholderBlock from "../utilities/PlaceholderBlock";
 
-registerBlockType("k1-block-theme/site-footer", {
-	title: "Site Footer",
+registerBlockType("k1-block-theme/site-header", {
+	title: "Site Header",
 	edit: EditComponent,
 	save: () => null,
 	supports: { align: ["full"] },
@@ -13,5 +13,5 @@ registerBlockType("k1-block-theme/site-footer", {
 } as BlockConfiguration);
 
 function EditComponent() {
-	return <PlaceholderBlock title="Site Footer" />;
+	return <PlaceholderBlock title="Site Header" />;
 }

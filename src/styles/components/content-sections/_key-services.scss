@@ -1,0 +1,21 @@
+@use "../../abstracts/mixins" as m;
+
+.top-talent-groups {
+	padding: 6.5rem 0;
+	.icon {
+		@include m.displayFlex(column, $cross: center);
+
+		&__svg {
+			$size: 15rem;
+			width: $size;
+			height: $size;
+			margin-bottom: 2rem;
+		}
+		&__label {
+			color: var(--color-grey);
+			font-size: 2em;
+			text-align: center;
+			font-weight: 700;
+		}
+	}
+}

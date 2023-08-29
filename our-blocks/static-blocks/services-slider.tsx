@@ -1,7 +1,7 @@
-import "../src/styles/components/swipers/_services.scss";
+import "../../src/styles/components/swipers/_services.scss";
 import React from "@wordpress/element";
 import { BlockConfiguration, registerBlockType } from "@wordpress/blocks";
-import PlaceholderBlock from "./utilities/PlaceholderBlock";
+import PlaceholderBlock from "../utilities/PlaceholderBlock";
 
 registerBlockType("k1-block-theme/services-slider", {
 	title: "Services Slider",

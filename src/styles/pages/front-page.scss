@@ -1,31 +1,11 @@
-@use '../abstracts/mixins' as m;
-@use '../abstracts/variables' as v;
-@use '../components/content-sections/core-services';
-@use '../components/equipment';
+@use "../abstracts/mixins" as m;
+@use "../abstracts/variables" as v;
+@use "../components/content-sections/core-services";
+@use "../components/equipment";
 
 @mixin full-size {
 	height: 100%;
 	width: 100%;
-}
-
-.top-talent-groups {
-	padding: 6.5rem 0;
-	.icon {
-		@include m.displayFlex(column, $cross: center);
-
-		&__svg {
-			$size: 15rem;
-			width: $size;
-			height: $size;
-			margin-bottom: 2rem;
-		}
-		&__label {
-			color: var(--color-grey);
-			font-size: 2em;
-			text-align: center;
-			font-weight: 700;
-		}
-	}
 }
 
 .stakes {

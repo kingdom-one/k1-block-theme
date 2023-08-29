@@ -21,8 +21,14 @@ const jsFiles = [
 	"pricing",
 ];
 
-const swipers = ["testimonials-slider", "services-slider", "brands-slider"];
-const blockTypes = [...swipers, "hero", "site-header", "site-footer"];
+const swipers = [
+	"testimonials-slider",
+	"services-slider",
+	"brands-slider",
+	"relationship-first-slider",
+];
+const staticBlocks = [...swipers, "site-header", "site-footer", "key-services"];
+const dynamicBlocks = ["hero"];
 
 /**
  * For SCSS files (no leading `_`)
@@ -49,8 +55,16 @@ module.exports = {
 					] = `./src/js/vendors/swipers/${jsFile}.ts`;
 				});
 			}
-			if (blockTypes.length > 0) {
-				blockTypes.forEach((jsFile) => {
+			if (staticBlocks.length > 0) {
+				staticBlocks.forEach((jsFile) => {
+					const jsFileOutput = `blocks/${jsFile}`;
+					entries[
+						jsFileOutput
+					] = `./our-blocks/static-blocks/${jsFile}.tsx`;
+				});
+			}
+			if (dynamicBlocks.length > 0) {
+				dynamicBlocks.forEach((jsFile) => {
 					const jsFileOutput = `blocks/${jsFile}`;
 					entries[jsFileOutput] = `./our-blocks/${jsFile}.tsx`;
 				});
