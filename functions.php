@@ -7,9 +7,9 @@
  */
 
 // Load Required Files
-require_once get_template_directory() . '/inc/theme/class-block-theme.php';
+require_once get_template_directory() . '/inc/theme/class-k1-block-theme.php';
 
 // Init Theme
-$k1_theme = new Block_Theme();
+$k1_theme = new K1_Block_Theme();
 
 // =====================================

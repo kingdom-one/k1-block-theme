@@ -21,8 +21,8 @@ const jsFiles = [
 	"pricing",
 ];
 
-const blockTypes = ["hero", "testimonials-slider", "header", "footer"];
-const swipers = ["testimonials", "services", "brands"];
+const swipers = ["testimonials-slider", "services-slider", "brands-slider"];
+const blockTypes = [...swipers, "hero", "site-header", "site-footer"];
 
 /**
  * For SCSS files (no leading `_`)
@@ -43,10 +43,10 @@ module.exports = {
 
 			if (swipers.length > 0) {
 				swipers.forEach((jsFile) => {
-					const jsFileOutput = `vendors/sliders/${jsFile}-slider`;
+					const jsFileOutput = `vendors/sliders/${jsFile}`;
 					entries[
 						jsFileOutput
-					] = `./src/js/vendors/swipers/${jsFile}-slider.ts`;
+					] = `./src/js/vendors/swipers/${jsFile}.ts`;
 				});
 			}
 			if (blockTypes.length > 0) {
@@ -58,7 +58,9 @@ module.exports = {
 			if (jsFiles.length > 0) {
 				jsFiles.forEach((jsFile) => {
 					const jsFileOutput = snakeToCamel(jsFile);
-					entries[jsFileOutput] = `./src/js/${jsFile}/index.ts`;
+					entries[
+						`pages/${jsFileOutput}`
+					] = `./src/js/${jsFile}/index.ts`;
 				});
 			}
 

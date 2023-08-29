@@ -1,9 +1,19 @@
-<?php // phpcs:ignore
-require_once dirname(__FILE__) . '/class-k1-theme-cleaner.php';
-class Theme_Init extends K1_Theme_Cleaner { // phpcs:ignore
-	private array $dependencies = array(); // phpcs:ignore
+<?php
+/** Inits the Theme with standard functions and loaded files */
 
-	public function __construct() { // phpcs:ignore
+/** Require Parent Class */
+require_once __DIR__ . '/class-k1-theme-cleaner.php';
+
+/** Init Theme */
+class Theme_Init extends K1_Theme_Cleaner {
+	/** The Asset Dependencies
+	 *
+	 * @var array $dependencies
+	 */
+	private array $dependencies = array();
+
+	/** Build the Class */
+	public function __construct() {
 		parent::__construct();
 		$this->load_files();
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_k1_scripts' ) );
@@ -14,14 +24,14 @@ class Theme_Init extends K1_Theme_Cleaner { // phpcs:ignore
 
 	/** Loads required files */
 	private function load_files() {
-		require_once dirname( __FILE__, 2 ) . '/component-classes/class-content-sections.php';
-		require_once dirname( __FILE__ ) . '/class-k1-nav-walker.php';
-		require_once dirname( __FILE__ ) . '/theme-functions.php';
+		require_once dirname( __DIR__, 1 ) . '/component-classes/class-content-sections.php';
+		require_once __DIR__ . '/class-k1-nav-walker.php';
+		require_once __DIR__ . '/theme-functions.php';
 
-		$this->dependencies['bootstrap']   = require_once dirname( __FILE__, 3 ) . '/dist/vendors/bootstrap.asset.php';
-		$this->dependencies['fontawesome'] = require_once dirname( __FILE__, 3 ) . '/dist/vendors/fontawesome.asset.php';
-		$this->dependencies['vendors']     = require_once dirname( __FILE__, 3 ) . '/dist/vendors/vendors.asset.php';
-		$this->dependencies['main']        = require_once dirname( __FILE__, 3 ) . '/dist/global.asset.php';
+		$this->dependencies['bootstrap']   = require_once dirname( __DIR__, 2 ) . '/dist/vendors/bootstrap.asset.php';
+		$this->dependencies['fontawesome'] = require_once dirname( __DIR__, 2 ) . '/dist/vendors/fontawesome.asset.php';
+		$this->dependencies['vendors']     = require_once dirname( __DIR__, 2 ) . '/dist/vendors/vendors.asset.php';
+		$this->dependencies['main']        = require_once dirname( __DIR__, 2 ) . '/dist/global.asset.php';
 	}
 
 	/**

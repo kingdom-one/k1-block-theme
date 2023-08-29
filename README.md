@@ -7,6 +7,13 @@ Circumvent dependency on Advanced Custom Fields and use Blocks instead to allow 
 
 # Changelog
 
+## v0.2.0
+
+-   Refactor `/dist` folder to be more organized
+-   Cleanup templates (`.html`)
+-   Refactor & overload `k1_enqueue_page` functions to handle new `/dist` folder
+-   Create Block Factory
+
 ## v0.1
 
 -   init!
