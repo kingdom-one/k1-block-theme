@@ -21,8 +21,6 @@ const jsFiles = [
 	"pricing",
 ];
 
-const blockTypes = ["hero", "hero-content"];
-
 /**
  * For SCSS files (no leading `_`)
  * Array of strings modeled after scss names (e.g. 'we-are-kingdom-one')
@@ -37,15 +35,9 @@ module.exports = {
 				global: `./src/index.js`,
 				"vendors/fontawesome": `./src/js/vendors/global/fontawesome.js`,
 				"vendors/bootstrap": `./src/js/vendors/global/bootstrap.js`,
-				"vendors/vendors": `./src/styles/vendors/vendors.scss`,
+				"vendors/fonts": `./src/styles/vendors/_fonts.scss`,
 			};
 
-			if (blockTypes.length > 0) {
-				blockTypes.forEach((jsFile) => {
-					const jsFileOutput = `blocks/${jsFile}`;
-					entries[jsFileOutput] = `./our-blocks/${jsFile}.tsx`;
-				});
-			}
 			if (jsFiles.length > 0) {
 				jsFiles.forEach((jsFile) => {
 					const jsFileOutput = snakeToCamel(jsFile);

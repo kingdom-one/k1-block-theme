@@ -7,6 +7,10 @@ Circumvent dependency on Advanced Custom Fields and use Blocks instead to allow 
 
 # Changelog
 
+## v0.2.1
+
+-   Add typography.
+
 ## v0.2
 
 -   Move blocks to plugin
