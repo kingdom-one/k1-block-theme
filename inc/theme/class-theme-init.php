@@ -1,18 +1,18 @@
 <?php
-/** Inits the Theme with standard functions and loaded files */
+/**
+ * The Original Theme Init
+ *
+ * @package KingdomOne
+ */
 
-/** Require Parent Class */
+// Loads Cleanup Functions
 require_once __DIR__ . '/class-k1-theme-cleaner.php';
 
-/** Init Theme */
+/**
+ * Enqueues most assets and setups
+ */
 class Theme_Init extends K1_Theme_Cleaner {
-	/** The Asset Dependencies
-	 *
-	 * @var array $dependencies
-	 */
-	private array $dependencies = array();
-
-	/** Build the Class */
+	/** Constructor */
 	public function __construct() {
 		parent::__construct();
 		$this->load_files();
@@ -27,55 +27,66 @@ class Theme_Init extends K1_Theme_Cleaner {
 		require_once dirname( __DIR__, 1 ) . '/component-classes/class-content-sections.php';
 		require_once __DIR__ . '/class-k1-nav-walker.php';
 		require_once __DIR__ . '/theme-functions.php';
-
-		$this->dependencies['bootstrap']   = require_once dirname( __DIR__, 2 ) . '/dist/vendors/bootstrap.asset.php';
-		$this->dependencies['fontawesome'] = require_once dirname( __DIR__, 2 ) . '/dist/vendors/fontawesome.asset.php';
-		$this->dependencies['vendors']     = require_once dirname( __DIR__, 2 ) . '/dist/vendors/vendors.asset.php';
-		$this->dependencies['main']        = require_once dirname( __DIR__, 2 ) . '/dist/global.asset.php';
 	}
 
 	/**
 	 * Adds scripts with the appropriate dependencies
 	 */
 	public function enqueue_k1_scripts() {
-		// JS
+		$bootstrap = require_once get_template_directory() . '/dist/vendors/bootstrap.asset.php';
 		wp_enqueue_script(
 			'bootstrap',
 			get_template_directory_uri() . '/dist/vendors/bootstrap.js',
-			array(),
-			$this->dependencies['bootstrap']['version'],
+			$bootstrap['dependencies'],
+			$bootstrap['version'],
 			array( 'strategy' => 'defer' )
 		);
+		wp_enqueue_style(
+			'bootstrap',
+			get_template_directory_uri() . '/dist/vendors/bootstrap.css',
+			$bootstrap['dependencies'],
+			$bootstrap['version']
+		);
+
+		$fontawesome = require_once get_template_directory() . '/dist/vendors/fontawesome.asset.php';
 		wp_enqueue_script(
 			'fontawesome',
 			get_template_directory_uri() . '/dist/vendors/fontawesome.js',
-			array(),
-			$this->dependencies['fontawesome']['version'],
+			$fontawesome['dependencies'],
+			$fontawesome['version'],
 			array( 'strategy' => 'async' )
 		);
+		$fonts = require_once get_template_directory() . '/dist/vendors/fonts.asset.php';
+		wp_enqueue_style(
+			'fonts',
+			get_template_directory_uri() . '/dist/vendors/fonts.css',
+			$fonts['dependencies'],
+			$fonts['version']
+		);
+
+		$main = require_once get_template_directory() . '/dist/global.asset.php';
 		wp_enqueue_script(
 			'main',
 			get_template_directory_uri() . '/dist/global.js',
-			array( 'bootstrap', 'fontawesome' ),
-			$this->dependencies['main']['version'],
+			array_unique( array_merge( $main['dependencies'], array( 'bootstrap' ) ) ),
+			$main['version'],
 			array( 'strategy' => 'defer' )
 		);
 
-		// CSS
-		wp_enqueue_style(
-			'vendors',
-			get_template_directory_uri() . '/dist/vendors/vendors.css',
-			array(),
-			$this->dependencies['vendors']['version']
-		);
 		wp_enqueue_style(
 			'main',
 			get_template_directory_uri() . '/dist/global.css',
-			array( 'vendors' ),
-			$this->dependencies['main']['version']
+			array_unique( array_merge( $main['dependencies'], array( 'bootstrap', 'fonts' ) ) ),
+			$main['version']
 		);
 
-		wp_localize_script( 'main', 'k1SiteData', array( 'rootUrl' => home_url() ) );
+		wp_localize_script(
+			'main',
+			'k1SiteData',
+			array( 'rootUrl' => home_url() )
+		);
+
+		$this->remove_wordpress_styles( array( 'classic-theme-styles', 'dashicons' ) );
 	}
 
 	/** Handle Theme Supports */
@@ -84,7 +95,7 @@ class Theme_Init extends K1_Theme_Cleaner {
 		add_theme_support( 'title-tag' );
 	}
 
-	/** Register Menus */
+	/** Registers Menus */
 	public function register_k1_menus() {
 		register_nav_menus(
 			array(

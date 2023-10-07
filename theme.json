@@ -1,4 +1,5 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 2,
 	"settings": {
 		"layout": {
@@ -12,7 +13,7 @@
 					"name": "Primary Green"
 				},
 				{
-					"slug": "primary--dark",
+					"slug": "primary-dark",
 					"color": "#00644b",
 					"name": "Dark Green"
 				},
@@ -64,13 +65,31 @@
 				{
 					"slug": "black",
 					"color": "#000",
-					"name": "black"
+					"name": "Black"
+				},
+				{
+					"slug": "drop-shadow",
+					"color": "rgba(0,0,0,.35)",
+					"name": "Drop Shadow"
 				}
 			],
-			"custom": false,
 			"customGradient": false,
 			"defaultPalette": false,
 			"defaultGradients": false
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"fontFamily": "'Roie', sans-serif;",
+					"name": "Roie",
+					"slug": "roie"
+				},
+				{
+					"fontFamily": "'Poppins', sans-serif;",
+					"name": "Poppins",
+					"slug": "poppins"
+				}
+			]
 		}
 	},
 	"styles": {

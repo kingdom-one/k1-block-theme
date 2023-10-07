@@ -21,20 +21,11 @@ const jsFiles = [
 	"pricing",
 ];
 
-const swipers = [
-	"testimonials-slider",
-	"services-slider",
-	"brands-slider",
-	"relationship-first-slider",
-];
-const staticBlocks = [
-	...swipers,
-	"site-header",
-	"site-footer",
-	"key-services",
-	"icon-grid",
-];
-const dynamicBlocks = ["hero"];
+/**
+ * For SCSS files (no leading `_`)
+ * Array of strings modeled after scss names (e.g. 'we-are-kingdom-one')
+ *  */
+const styleSheets = []; // for scss only
 
 module.exports = {
 	...defaultConfig,
@@ -44,31 +35,9 @@ module.exports = {
 				global: `./src/index.js`,
 				"vendors/fontawesome": `./src/js/vendors/global/fontawesome.js`,
 				"vendors/bootstrap": `./src/js/vendors/global/bootstrap.js`,
-				"vendors/vendors": `./src/styles/vendors/vendors.scss`,
+				"vendors/fonts": `./src/styles/vendors/_fonts.scss`,
 			};
 
-			if (swipers.length > 0) {
-				swipers.forEach((jsFile) => {
-					const jsFileOutput = `vendors/sliders/${jsFile}`;
-					entries[
-						jsFileOutput
-					] = `./src/js/vendors/swipers/${jsFile}.ts`;
-				});
-			}
-			if (staticBlocks.length > 0) {
-				staticBlocks.forEach((jsFile) => {
-					const jsFileOutput = `blocks/${jsFile}`;
-					entries[
-						jsFileOutput
-					] = `./our-blocks/static-blocks/${jsFile}.tsx`;
-				});
-			}
-			if (dynamicBlocks.length > 0) {
-				dynamicBlocks.forEach((jsFile) => {
-					const jsFileOutput = `blocks/${jsFile}`;
-					entries[jsFileOutput] = `./our-blocks/${jsFile}.tsx`;
-				});
-			}
 			if (jsFiles.length > 0) {
 				jsFiles.forEach((jsFile) => {
 					const jsFileOutput = snakeToCamel(jsFile);

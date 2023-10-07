@@ -3,6 +3,7 @@
  * The helper functions to use
  *
  * @since 1.3
+ * @package KingdomOne
  */
 
 /** Gets SVG from `~/assets/svgs`
