@@ -10,6 +10,7 @@ Circumvent dependency on Advanced Custom Fields and use Blocks instead to allow 
 ## v0.2.1
 
 -   Add typography.
+-   Try to add to github again.
 
 ## v0.2
 
