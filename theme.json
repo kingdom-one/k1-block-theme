@@ -75,7 +75,8 @@
 			],
 			"customGradient": false,
 			"defaultPalette": false,
-			"defaultGradients": false
+			"defaultGradients": false,
+			"custom": true
 		},
 		"typography": {
 			"fontFamilies": [
@@ -88,6 +89,33 @@
 					"fontFamily": "'Poppins', sans-serif;",
 					"name": "Poppins",
 					"slug": "poppins"
+				}
+			],
+			"fontSizes": [
+				{
+					"slug": "small",
+					"size": "1.4rem",
+					"name": "Small"
+				},
+				{
+					"slug": "medium",
+					"size": "1.6rem",
+					"name": "Medium"
+				},
+				{
+					"slug": "large",
+					"size": "2.4rem",
+					"name": "Large"
+				},
+				{
+					"slug": "x-large",
+					"size": "3.2rem",
+					"name": "Extra Large"
+				},
+				{
+					"slug": "huge",
+					"size": "4.8rem",
+					"name": "Huge"
 				}
 			]
 		}
