@@ -1,0 +1,13 @@
+.hamburger {
+	position: fixed;
+	width: 6rem;
+	height: 8rem;
+	cursor: pointer;
+
+	&__lines {
+		border: 2px solid var(--color-primary);
+		display: block;
+		border-radius: 1rem;
+		width: 100%;
+	}
+}
