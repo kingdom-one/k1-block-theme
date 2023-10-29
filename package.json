@@ -23,7 +23,7 @@
 		"@wordpress/api-fetch": "^6.41.0",
 		"aos": "^2.3.4",
 		"bootstrap": "^5.3.1",
-		"swiper": "^10.1.0"
+		"swiper": "^11.0.3"
 	},
 	"devDependencies": {
 		"@types/wordpress__block-editor": "^11.5.1",
