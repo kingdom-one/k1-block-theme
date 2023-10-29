@@ -1,0 +1,73 @@
+@use '../../abstracts/mixins' as m;
+@use '../../abstracts/variables' as v;
+@use '../../abstracts/functions' as fn;
+@use '../buttons';
+
+.offcanvas {
+	padding-top: 2rem;
+	background-color: rgba(white, 0.8);
+
+	&__header {
+		@include m.displayFlex(row, space-between, center);
+		padding: 2rem 1rem;
+	}
+
+	.logo-image {
+		svg {
+			fill: var(--color-primary);
+		}
+	}
+	.btn-close {
+		color: var(--color-primary--dark);
+		font-size: 5rem;
+		background: none;
+		width: unset;
+		height: unset;
+		padding: unset;
+		box-sizing: unset;
+		opacity: 1;
+		transition: color v.$transition--standard;
+
+		&:hover {
+			color: var(--color-primary);
+		}
+	}
+
+	&__body {
+		overflow-y: auto;
+
+		.menu-item {
+			padding: 10px;
+			margin: 0 10px;
+			display: inline-block;
+			border-bottom: 2px solid transparent;
+			transition: fn.transition(border-color);
+			color: white;
+			text-align: center;
+			color: var(--color-primary--dark);
+			font-weight: bold;
+
+			&:hover,
+			&:active,
+			&:focus {
+				color: var(--color-primary);
+				border-color: var(--color-primary);
+				cursor: pointer;
+			}
+
+			a:not(:has(h1)) {
+				color: inherit;
+				transition: fn.transition(all);
+				text-decoration: none;
+
+				&:not(:has(h1)) {
+					text-transform: uppercase;
+				}
+			}
+
+			&.cta {
+				@extend .btn__primary--fill;
+			}
+		}
+	}
+}

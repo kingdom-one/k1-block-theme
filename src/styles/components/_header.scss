@@ -1,4 +1,6 @@
 @use '../abstracts/functions' as fn;
+@use './header/hamburger';
+@use './header/offcanvas';
 
 .header {
 	z-index: 5;
