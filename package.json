@@ -20,7 +20,7 @@
 		"@fortawesome/free-brands-svg-icons": "^6.4.0",
 		"@fortawesome/free-regular-svg-icons": "^6.4.0",
 		"@fortawesome/free-solid-svg-icons": "^6.4.0",
-		"@wordpress/api-fetch": "^6.36.0",
+		"@wordpress/api-fetch": "^6.41.0",
 		"aos": "^2.3.4",
 		"bootstrap": "^5.3.1",
 		"swiper": "^10.1.0"
@@ -28,6 +28,6 @@
 	"devDependencies": {
 		"@types/wordpress__block-editor": "^11.5.1",
 		"@types/wordpress__blocks": "^12.5.0",
-		"@wordpress/scripts": "^26.14.0"
+		"@wordpress/scripts": "^26.15.0"
 	}
 }
