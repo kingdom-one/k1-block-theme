@@ -9,28 +9,6 @@ k1_enqueue_page_assets( 'frontPage' );
 ?>
 <main class="site-content">
 	<?php the_content();?>
-	<section class="projects py-5">
-		<?php $content->get_color_background_layers( 'projects', 'zig-zag-left', ); ?>
-		<div class="z-3 position-relative py-5 my-5">
-			<div class="container">
-				<div class="row justify-content-center mt-5">
-					<div class="col-lg-10 text-center">
-						<h2 class="text-white">Recent Partnerships</h2>
-						<p class="subheadline text-white">We have had the privilege of partnering with so many amazing ministries. Below is some of the recent work that we have had the
-							opportunity to be a part of.</p>
-					</div>
-				</div>
-			</div>
-			<?php get_template_part( 'template-parts/sliders/swiper', 'brands' ); ?>
-		</div>
-	</section>
-	<aside class="video-testimonial">
-		<div class="container">
-			<div class="row justify-content-center">
-				<lite-youtube videoid='ClhiWrVCNkg' playlabel='Hume Lake Christian Camp and Kingdom One'></lite-youtube>
-			</div>
-		</div>
-	</aside>
 	<section class="ministry-plan">
 		<?php $content->get_color_background_layers( 'ministry-plan', 'left-top', array( 'josh-calabrese-XXpbdU_31Sg-unsplash', 'jpg' ) ); ?>
 		<div class="ministry-plan__content position-relative z-3 py-5">
