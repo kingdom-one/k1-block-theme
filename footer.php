@@ -13,7 +13,7 @@ $current_year = gmdate( 'Y' );
 			<div class="col-md-4 d-flex justify-content-center align-items-center flex-column">
 				<a href="/" class="h1" aria-label='to Home page'>
 					<figure class="logo">
-						<?php echo file_get_contents( 'wp-content/themes/k1-theme/src/assets/K1-Logo-v2.svg' ); ?>
+						<?php echo file_get_contents(get_theme_file_path() . '/src/assets/K1-Logo-v2.svg');?>
 					</figure>
 				</a>
 				<div class="socials row justify-content-around align-self-stretch">
