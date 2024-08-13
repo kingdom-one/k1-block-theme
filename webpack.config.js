@@ -1,66 +1,53 @@
-const defaultConfig = require("@wordpress/scripts/config/webpack.config.js");
+const defaultConfig = require('@wordpress/scripts/config/webpack.config.js');
+const getWebpackEntryPoints =
+	require('@wordpress/scripts/utils/config').getWebpackEntryPoints;
 
-function snakeToCamel(str) {
-	return str.replace(/([-_][a-z])/g, (group) =>
-		group.toUpperCase().replace("-", "").replace("_", ""),
-	);
-}
+const defaultEntries = getWebpackEntryPoints('script')();
+const customEntries = {
+	'global': `./src/index.js`,
+	'vendors/fontawesome': `./src/js/vendors/global/fontawesome.js`,
+	'vendors/bootstrap': `./src/js/vendors/global/bootstrap.js`,
+	'vendors/fonts': `./src/styles/vendors/_fonts.scss`,
+};
 
-/**
- * For Typescript files (located `~/src/js/folder-name/index.ts)`)
- * Array of strings modeled after folder names (e.g. 'about-kingdom-one')
- *
- * NOTE: Make sure to import scss files in TS file and not below.
- */
 const jsFiles = [
-	"communications",
-	"front-page",
-	"get-started",
-	"hr-page",
-	"k1-about",
-	"pricing",
+	'communications',
+	'front-page',
+	'get-started',
+	'hr-page',
+	'k1-about',
+	'pricing',
 ];
-
-/**
- * For SCSS files (no leading `_`)
- * Array of strings modeled after scss names (e.g. 'we-are-kingdom-one')
- *  */
-const styleSheets = []; // for scss only
+const entries = {
+	...defaultEntries,
+	...customEntries,
+	...() => {
+		const entries = {};
+		if (jsFiles.length > 0) {
+			jsFiles.forEach((jsFile) => {
+				const jsFileOutput = snakeToCamel(jsFile);
+				entries[
+					`pages/${jsFileOutput}`
+				] = `./src/js/${jsFile}/index.ts`;
+			});
+		}
+		return entries;
+	},
+};
 
 module.exports = {
 	...defaultConfig,
 	...{
-		entry: function () {
-			const entries = {
-				global: `./src/index.js`,
-				"vendors/fontawesome": `./src/js/vendors/global/fontawesome.js`,
-				"vendors/bootstrap": `./src/js/vendors/global/bootstrap.js`,
-				"vendors/fonts": `./src/styles/vendors/_fonts.scss`,
-			};
-
-			if (jsFiles.length > 0) {
-				jsFiles.forEach((jsFile) => {
-					const jsFileOutput = snakeToCamel(jsFile);
-					entries[
-						`pages/${jsFileOutput}`
-					] = `./src/js/${jsFile}/index.ts`;
-				});
-			}
-
-			// if (styleSheets.length > 0) {
-			// 	styleSheets.forEach((styleSheet) => {
-			// 		const styleSheetOutput = snakeToCamel(styleSheet);
-			// 		entries[
-			// 			styleSheetOutput
-			// 		] = `./src/styles/pages/${styleSheet}.scss`;
-			// 	});
-			// }
-			return entries;
-		},
-
+		entry: entries,
 		output: {
 			path: __dirname + `/dist`,
 			filename: `[name].js`,
 		},
 	},
 };
+
+function snakeToCamel(str) {
+	return str.replace(/([-_][a-z])/g, (group) =>
+		group.toUpperCase().replace('-', '').replace('_', ''),
+	);
+}
