@@ -1,8 +1,7 @@
 {
 	"name": "k1-block-theme",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A block-style WordPress theme for Kingdom One",
-	"main": "src/index.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/kingdom-one/k1-block-theme.git"
@@ -16,18 +15,22 @@
 	"author": "Kingdom One",
 	"license": "ISC",
 	"dependencies": {
-		"@fortawesome/fontawesome-svg-core": "^6.4.0",
-		"@fortawesome/free-brands-svg-icons": "^6.4.0",
-		"@fortawesome/free-regular-svg-icons": "^6.4.0",
-		"@fortawesome/free-solid-svg-icons": "^6.4.0",
-		"@wordpress/api-fetch": "^6.41.0",
+		"@fortawesome/fontawesome-svg-core": "^6.6.0",
+		"@fortawesome/free-brands-svg-icons": "^6.6.0",
+		"@fortawesome/free-regular-svg-icons": "^6.6.0",
+		"@fortawesome/free-solid-svg-icons": "^6.6.0",
 		"aos": "^2.3.4",
-		"bootstrap": "^5.3.1",
-		"swiper": "^11.0.3"
+		"bootstrap": "^5.3.3",
+		"swiper": "^11.1.9"
 	},
 	"devDependencies": {
-		"@types/wordpress__block-editor": "^11.5.1",
-		"@types/wordpress__blocks": "^12.5.0",
-		"@wordpress/scripts": "^26.15.0"
+		"@types/wordpress__block-editor": "^11.5.15",
+		"@types/wordpress__blocks": "^12.5.14",
+		"@wordpress/scripts": "^28.5.0"
+	},
+	"overrides": {
+		"lighthouse": "^12.2.0",
+		"puppeteer-core": "^23.0.2",
+		"ws": "^8.18.0"
 	}
 }
